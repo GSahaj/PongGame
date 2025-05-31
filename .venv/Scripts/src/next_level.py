@@ -5,6 +5,7 @@ import pgzrun
 import random
 import math
 from Scripts.src.game_frame import GameFrame
+from pgzero.loaders import sounds
 
 
 class NextLevel(GameFrame):
@@ -73,6 +74,8 @@ class NextLevel(GameFrame):
 
         if self.ping_pong.colliderect(self.blue_paddle) and not self.invulnerable and self.m1_dx < 0:
              self.set_p1_score(self.get_p1_score() + 1)
+             sounds.background_noise.stop()
+             sounds.gain_point.play()
              self.m1_dx *= -1
              self.invulnerable = True
              self.last_collision_time = current_time
@@ -80,6 +83,8 @@ class NextLevel(GameFrame):
 
         elif self.ping_pong.colliderect(self.red_paddle) and not self.invulnerable and self.m1_dx > 0:
             self.set_p2_score(self.get_p2_score() + 1)
+            sounds.background_noise.stop()
+            sounds.gain_point.play()
             self.m1_dx *= -1
             self.invulnerable = True
             self.last_collision_time = current_time
@@ -95,14 +100,16 @@ class NextLevel(GameFrame):
         if not self.ball_paused:
             if self.ping_pong.x < self.TABLE_LEFT:
                 self.set_p1_live(self.get_p1_live() - 1)
-                self.sounds.lose_point.play()
+                sounds.background_noise.stop()
+                sounds.lose_point.play()
                 self.ping_pong.pos = self.default_position
                 self.ball_paused = True
                 self.pause_end_time = pygame.time.get_ticks() + 1000
 
             if self.ping_pong.x > self.TABLE_RIGHT:
                 self.set_p2_live(self.get_p2_live() - 1)
-                self.sounds.lose_point.play()
+                sounds.background_noise.stop()
+                sounds.lose_point.play()
                 self.ping_pong.pos = self.default_position
                 self.ball_paused = True
                 self.pause_end_time = pygame.time.get_ticks() + 1000
@@ -111,6 +118,7 @@ class NextLevel(GameFrame):
         if self.get_p1_score() + self.get_p2_score() == self.get_points_required():
             if not self.get_level() == 4:
                 self.set_level(self.get_level() + 1)
+                sounds.level_up.play()
                 self.set_points_required(self.get_points_required() + math.floor(self.get_points_required() * 1.5))
                 self.set_ping_pong_speed(self.get_ping_pong_speed() + 2)
 
