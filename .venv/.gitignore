@@ -1,0 +1,16 @@
+# Ignore virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Byte-compiled files
+__pycache__/
+*.py[cod]
+
+# PyCharm
+.idea/
+
+# macOS/Windows
+.DS_Store
+Thumbs.db
