@@ -16,9 +16,9 @@ class GameFrame():
         self.invulnerable = False
         self.invulnerable_timer = 0
         self.p1_score = 0
-        self.p1_live = 15
+        self.p1_live = 3
         self.p2_score = 0
-        self.p2_live = 15
+        self.p2_live = 3
         self.point_required = 10
         self.level = 1
 
